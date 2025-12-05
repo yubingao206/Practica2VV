@@ -246,7 +246,7 @@ public class BoardTest {
             }
             String mensaje = "Invasion!";
             alien.setX(Commons.BORDER_LEFT + 1);
-            alien.setY(Commons.GROUND - Commons.ALIEN_HEIGHT);
+            alien.setY(Commons.GROUND + Commons.ALIEN_HEIGHT +1);
             Method method = Board.class.getDeclaredMethod("update_aliens");
             method.setAccessible(true);
             method.invoke(board);

@@ -135,8 +135,8 @@ public class Board extends JPanel {
         for (int i = 0; i < Commons.ALIEN_ROWS; i++) {
             for (int j = 0; j < Commons.ALIEN_COLUMNS; j++) {
 
-                var alien = new Alien(Commons.ALIEN_INIT_X + Commons.ALIEN_SEPARATOR * j,
-                        Commons.ALIEN_INIT_Y + Commons.ALIEN_SEPARATOR * i);
+                var alien = new Alien(Commons.ALIEN_INIT_X + (Commons.ALIEN_SEPARATOR+Commons.ALIEN_WIDTH) * j,
+                        Commons.ALIEN_INIT_Y + (Commons.ALIEN_SEPARATOR + Commons.ALIEN_HEIGHT) * i);
                 this.aliens.add(alien);
             }
         }
@@ -343,7 +343,7 @@ public class Board extends JPanel {
                 int alienX = alien.getX();
                 int alienY = alien.getY();
 
-                if (alien.isVisible() && this.shot.isVisible()) {
+                if (alien.isVisible()) {
                     if (shotX >= (alienX)
                             && shotX <= (alienX + Commons.ALIEN_WIDTH)
                             && shotY >= (alienY)
@@ -365,7 +365,7 @@ public class Board extends JPanel {
                 this.shot.die();
             } else {
                 this.shot.setY(y);
-                this.shot.setX(y);
+     //           this.shot.setX(y);
             }
         }
     }
@@ -395,32 +395,33 @@ public class Board extends JPanel {
      */
     private void update_aliens(){
         for (Alien alien : this.aliens) {
+            if (alien.isVisible()) {
+                int x = alien.getX();
 
-            int x = alien.getX();
+                if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT) {
 
-            if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT && direction == -1) {
+                    direction = -1;
 
-                direction = -1;
+                    Iterator<Alien> i1 = this.aliens.iterator();
 
-                Iterator<Alien> i1 = this.aliens.iterator();
+                    while (i1.hasNext()) {
 
-                while (i1.hasNext()) {
-
-                    Alien a2 = i1.next();
-                    a2.setY(a2.getY() + Commons.GO_DOWN);
+                        Alien a2 = i1.next();
+                        a2.setY(a2.getY() + Commons.GO_DOWN);
+                    }
                 }
-            }
 
-            if (x <= Commons.BORDER_LEFT && direction != 1) {
+                if (x <= Commons.BORDER_LEFT) {
 
-                direction = 1;
+                    direction = 1;
 
-                Iterator<Alien> i2 = this.aliens.iterator();
+                    Iterator<Alien> i2 = this.aliens.iterator();
 
-                while (i2.hasNext()) {
+                    while (i2.hasNext()) {
 
-                    Alien a = i2.next();
-                    a.setY(a.getY() + Commons.GO_DOWN);
+                        Alien a = i2.next();
+                        a.setY(a.getY() + Commons.GO_DOWN);
+                    }
                 }
             }
         }
@@ -481,8 +482,7 @@ public class Board extends JPanel {
             int rand = generator.nextInt(15);
             Alien.Bomb bomb = alien.getBomb();
 
-            if (rand != Commons.CHANCE && alien.isVisible() && bomb.isDestroyed()) {
-
+            if (rand != Commons.CHANCE && alien.isVisible() && bomb.isDestroyed()) { // 这里得改成rand == Commons.CHANCE
                 bomb.setDestroyed(false);
                 bomb.setX(alien.getX());
                 bomb.setY(alien.getY());
