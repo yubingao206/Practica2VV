@@ -44,21 +44,25 @@ public class Alien extends Sprite {
      * y su posición es válida dentro del tablero de juego.</dd></dl>
      */
      private void initAlien(int x, int y) {
+         /*
+          Hemos movido this.x = x; this.y = y; al principio del bloque,
+          para que sea el valor por defecto. Y hemos eliminado else final,
+          porque ya no hace falta. Hemos cambiado if (x<0) por else if (x<0)
+          (y lo mismo para y), así no se evalúan condiciones innecesarias.
+          */
+
+         this.x = x;
+         this.y = y;
          if (x> Commons.BOARD_WIDTH){
              this.x = Commons.BOARD_WIDTH;
-         } if (x<0){
+         } else if (x<0){
              this.x = 0;
-         } if (y> Commons.BOARD_HEIGHT){
+         }
+         if (y> Commons.BOARD_HEIGHT){
              this.y = Commons.BOARD_HEIGHT;
-         } if (y<0){
+         } else if (y<0){
              this.y=0;
          }
-         else
-         {
-             this.x = x;
-             this.y = y;
-         }
-
          bomb = new Bomb(x, y);
 
          var alienImg = "src/main/resources/images/alien.png";
@@ -81,7 +85,10 @@ public class Alien extends Sprite {
      * según la dirección especificada.</dd></dl>
      */
     public void act(int direction) {
-        this.x -= direction;
+        /*
+        Se ha cambiado el signo de un - a un +
+         */
+        this.x += direction;
     }
 
     /**
@@ -128,15 +135,23 @@ public class Alien extends Sprite {
         private void initBomb(int x, int y) {
             setDestroyed(true);
 
-            if (x<= Commons.BOARD_WIDTH && y<= Commons.BOARD_HEIGHT) {
-                this.x += x;
-                this.y += y;
-            } else
-            {
+            /*
+            Hemos reescrito completamente la lógica，
+            ya que consideramos los valores de x e y
+            (si están dentro o no del rango permitido) por separado.
+             */
+            this.x = x;
+            this.y = y;
+            if (x> Commons.BOARD_WIDTH){
                 this.x = Commons.BOARD_WIDTH;
-                this.y = Commons.BOARD_HEIGHT;
+            } else if (x<0){
+                this.x = 0;
             }
-
+            if (y> Commons.BOARD_HEIGHT){
+                this.y = Commons.BOARD_HEIGHT;
+            } else if (y<0){
+                this.y=0;
+            }
             var bombImg = "src/main/resources/images/bomb.png";
             var ii = new ImageIcon(bombImg);
             setImage(ii.getImage());

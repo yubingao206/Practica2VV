@@ -12,8 +12,8 @@ public class ShotTest {
 
     @Test
     void testinitShot_Caso1(){
-        int x = 10;
-        int y = 10;
+        int x = 166;
+        int y = 166;
         Shot shot = new Shot();
         try {
             Method metodo = shot.getClass().getDeclaredMethod("initShot", int.class, int.class);
@@ -28,7 +28,7 @@ public class ShotTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(shot);
 
-            assertTrue((valorx == 16) && (valory == 9));
+            assertTrue((valorx == 172) && (valory == 165));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
