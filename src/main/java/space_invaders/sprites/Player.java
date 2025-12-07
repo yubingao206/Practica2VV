@@ -60,14 +60,19 @@ public class Player extends Sprite {
 
         x += dx;
 
-        if (x <= 2) {
+        /*
+        Hemos cambiado los valores extremo tanto inferior como superior, siendo 2 a 0
+        y Commons.BOARD_WIDTH - 2*player.getWidth() a 358 para evitar el rebote entre
+        los extremos
+        */
+        if (x <= 0) {
 
-            x = 2;
+            x = 0;
         }
 
-        if (x >= Commons.BOARD_WIDTH - 2 * width) {
+        if (x >= 358) {
 
-            x = Commons.BOARD_WIDTH + 2 * width;
+            x = 358;
         }
     }
 

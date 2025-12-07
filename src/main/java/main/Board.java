@@ -482,7 +482,7 @@ public class Board extends JPanel {
             int rand = generator.nextInt(15);
             Alien.Bomb bomb = alien.getBomb();
 
-            if (rand != Commons.CHANCE && alien.isVisible() && bomb.isDestroyed()) { // 这里得改成rand == Commons.CHANCE
+            if (rand != Commons.CHANCE && alien.isVisible() && bomb.isDestroyed()) {
                 bomb.setDestroyed(false);
                 bomb.setX(alien.getX());
                 bomb.setY(alien.getY());
@@ -495,9 +495,14 @@ public class Board extends JPanel {
 
             if (this.player.isVisible() && !bomb.isDestroyed()) {
 
+                /*
+                Cambiamos la condición de bombY >= (playerY) por bombY <= (playerY)
+                porque el eje y de la bomba tiene que ser menor o igual que el eje y
+                del player para poder explotar
+                 */
                 if (bombX >= (playerX)
                         && bombX <= (playerX + Commons.PLAYER_WIDTH)
-                        && bombY >= (playerY)
+                        && bombY <= (playerY)
                         && bombY <= (playerY + Commons.PLAYER_HEIGHT)) {
 
                     var ii = new ImageIcon(explImg);
@@ -509,7 +514,11 @@ public class Board extends JPanel {
 
             if (!bomb.isDestroyed()) {
 
-                bomb.setY(bomb.getY() - Commons.BOMB_SPEED);
+                /*
+                Cambiamos el - de la operación por + porque el eje y de la bomba
+                tiene que aumentar en vez de disminuir
+                 */
+                bomb.setY(bomb.getY() + Commons.BOMB_SPEED);
 
                 if (bomb.getY() >= Commons.GROUND - Commons.BOMB_HEIGHT) {
 
