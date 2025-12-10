@@ -400,7 +400,7 @@ public class Board extends JPanel {
 
                 if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT) {
 
-                    direction = 1;
+                    direction = -1;
 
                     Iterator<Alien> i1 = this.aliens.iterator();
 
@@ -413,7 +413,7 @@ public class Board extends JPanel {
 
                 if (x <= Commons.BORDER_LEFT) {
 
-                    direction = -1;
+                    direction = 1;
 
                     Iterator<Alien> i2 = this.aliens.iterator();
 
@@ -437,7 +437,7 @@ public class Board extends JPanel {
                 int y = alien.getY();
 
                 if (y > Commons.GROUND + Commons.ALIEN_HEIGHT) {
-                    inGame = true;
+                    inGame = false;
                     message = "Invasion!";
                 }
 
@@ -482,7 +482,7 @@ public class Board extends JPanel {
             int rand = generator.nextInt(15);
             Alien.Bomb bomb = alien.getBomb();
 
-            if (rand != Commons.CHANCE && alien.isVisible() && bomb.isDestroyed()) {
+            if (rand == Commons.CHANCE && alien.isVisible() && bomb.isDestroyed()) {
                 bomb.setDestroyed(false);
                 bomb.setX(alien.getX());
                 bomb.setY(alien.getY());
@@ -496,13 +496,13 @@ public class Board extends JPanel {
             if (this.player.isVisible() && !bomb.isDestroyed()) {
 
                 /*
-                Cambiamos la condición de bombY >= (playerY) por bombY <= (playerY)
-                porque el eje y de la bomba tiene que ser menor o igual que el eje y
-                del player para poder explotar
+                Cambiamos la condición de bombY >= (playerY) por bombY + Commons.BOMB_HEIGHT >= (playerY)
+                porque el eje y de la bomba con la suma de Commons.BOMB_HEIGHT es mayor o igual que el eje y
+                del player, por lo que puede explotar
                  */
                 if (bombX >= (playerX)
                         && bombX <= (playerX + Commons.PLAYER_WIDTH)
-                        && bombY <= (playerY)
+                        && bombY + Commons.BOMB_HEIGHT >= (playerY)
                         && bombY <= (playerY + Commons.PLAYER_HEIGHT)) {
 
                     var ii = new ImageIcon(explImg);
