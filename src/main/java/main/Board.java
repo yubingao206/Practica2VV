@@ -400,7 +400,7 @@ public class Board extends JPanel {
 
                 if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT) {
 
-                    direction = -1;
+                    direction = 1;
 
                     Iterator<Alien> i1 = this.aliens.iterator();
 
@@ -413,7 +413,7 @@ public class Board extends JPanel {
 
                 if (x <= Commons.BORDER_LEFT) {
 
-                    direction = 1;
+                    direction = -1;
 
                     Iterator<Alien> i2 = this.aliens.iterator();
 
