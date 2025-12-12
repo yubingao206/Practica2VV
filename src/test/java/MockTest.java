@@ -31,7 +31,7 @@ public class MockTest {
 
 
             //para el metodo update_bomb()
-            Alien.Bomb bomb =aliens.getFirst().getBomb();
+            Alien.Bomb bomb = aliens.getFirst().getBomb();
             bomb.setDestroyed(false);
             bomb.setX(200);
             bomb.setY(100);

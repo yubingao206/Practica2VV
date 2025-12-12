@@ -19,7 +19,15 @@ public class Player extends Sprite {
      */
     public Player() {
 
+        System.out.println("------------Pasar el control al InitPlayer---------------");
+        System.out.println("Antes de llamar al método initPlayer: player no instanciada");
+
         initPlayer();
+
+        System.out.println("Instancia player en posición indicada:" +
+        "\n Player posición esperada: X = 179   Y = 280" +
+        "\n Player posición final X = " + this.x + "  Y = " + this.y);
+        System.out.println("------------Devolver el control al constructor de Player---------------");
     }
 
     /**
