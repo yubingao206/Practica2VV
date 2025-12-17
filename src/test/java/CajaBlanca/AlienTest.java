@@ -1,4 +1,5 @@
 package CajaBlanca;
+import main.Commons;
 import space_invaders.sprites.Alien;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Sprite;
@@ -44,9 +45,9 @@ public class AlienTest {
     }
 
     @Test
-    void testinitAlien_Caso3() {
+    void testinitAlien_Caso2() {
         int x = 100;
-        int y = 351;
+        int y = -1;
         Alien a = new Alien(x, y);
 
         try {
@@ -62,7 +63,39 @@ public class AlienTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(a);
 
-            assertTrue((valorx == 100) && (valory == 351));
+            assertTrue((valorx == x) && (valory==0));
+
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testinitAlien_Caso3() {
+        int x = 100;
+        int y = Commons.BOARD_HEIGHT + 1;
+        Alien a = new Alien(x, y);
+
+        try {
+            Method metodo = a.getClass().getDeclaredMethod("initAlien", int.class, int.class);
+            metodo.setAccessible(true);
+            metodo.invoke(a, x,y);
+
+            Field valx = Sprite.class.getDeclaredField("x");
+            valx.setAccessible(true);
+            int valorx = (int) valx.get(a);
+
+            Field valy = Sprite.class.getDeclaredField("y");
+            valy.setAccessible(true);
+            int valory = (int) valy.get(a);
+
+            assertTrue((valorx == 100) && (valory == Commons.BOARD_HEIGHT));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -94,7 +127,7 @@ public class AlienTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(a);
 
-            assertTrue((valorx == -1) && (valory == 100));
+            assertTrue((valorx == 0) && (valory == 100));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -109,7 +142,7 @@ public class AlienTest {
 
     @Test
     void testinitAlien_Caso5() {
-        int x = 359;
+        int x = Commons.BOARD_WIDTH + 1;
         int y = 100;
         Alien a = new Alien(x, y);
 
@@ -126,7 +159,7 @@ public class AlienTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(a);
 
-            assertTrue((valorx == 359) && (valory == 100));
+            assertTrue((valorx == Commons.BOARD_WIDTH) && (valory == 100));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -145,6 +178,6 @@ public class AlienTest {
         int x = 100;
         Alien a = new Alien(x,10);
         a.act(direccion);
-        assertEquals(101,a.getX());
+        assertEquals(x + direccion,a.getX());
     }
 }
