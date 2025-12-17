@@ -36,7 +36,7 @@ public class PlayerTest {
     void TestAct_Caso2(){
         int x = 0;
         int dx = -2;
-        int salidaEsperada = 2;
+        int salidaEsperada = 0;
         boolean resultado;
         player.setX(x);
         player.setDx(dx);
@@ -49,7 +49,7 @@ public class PlayerTest {
     void TestAct_Caso3(){
         int x = Commons.BOARD_WIDTH;
         int dx = 2;
-        int salidaEsperada = Commons.BOARD_WIDTH + 2 * Commons.PLAYER_WIDTH;
+        int salidaEsperada = Commons.BOARD_WIDTH - 2 * Commons.PLAYER_WIDTH;
         boolean resultado;
         player.setX(x);
         player.setDx(dx);
