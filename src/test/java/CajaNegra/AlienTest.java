@@ -1,3 +1,5 @@
+package CajaNegra;
+
 import space_invaders.sprites.Alien;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Sprite;

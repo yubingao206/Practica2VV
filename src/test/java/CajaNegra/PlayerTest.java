@@ -1,3 +1,5 @@
+package CajaNegra;
+
 import main.Commons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

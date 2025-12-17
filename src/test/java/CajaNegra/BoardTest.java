@@ -1,8 +1,9 @@
+package CajaNegra;
+
 import main.Board;
 import main.Commons;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Alien;
-import space_invaders.sprites.Player;
 import space_invaders.sprites.Shot;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
