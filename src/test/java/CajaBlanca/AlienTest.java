@@ -95,7 +95,7 @@ public class AlienTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(a);
 
-            assertTrue((valorx == 100) && (valory == Commons.BOARD_HEIGHT));
+            assertTrue((valorx == x) && (valory == Commons.BOARD_HEIGHT));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -127,7 +127,7 @@ public class AlienTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(a);
 
-            assertTrue((valorx == 0) && (valory == 100));
+            assertTrue((valorx == 0) && (valory == y));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -159,7 +159,7 @@ public class AlienTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(a);
 
-            assertTrue((valorx == Commons.BOARD_WIDTH) && (valory == 100));
+            assertTrue((valorx == Commons.BOARD_WIDTH) && (valory == y));
 
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
