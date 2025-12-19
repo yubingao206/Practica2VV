@@ -94,8 +94,8 @@ public class BoardTest {
                 itAlien.next().die();
             }
             Shot shot = board.getShot();
-            shot.setY(alien.getY() - 1);
-            shot.setX(alien.getX() - 1);
+            shot.setY(alien.getY() + Commons.ALIEN_HEIGHT + 1);
+            shot.setX(alien.getX() + Commons.ALIEN_WIDTH);
             int shotPosY = shot.getY();
             int shotPosX = shot.getX();
             Method method = Board.class.getDeclaredMethod("update_shots");
@@ -264,7 +264,29 @@ public class BoardTest {
             Method method = Board.class.getDeclaredMethod("update_bomb");
             method.setAccessible(true);
             method.invoke(board);
-            assertTrue( (bombDestroyed == alien.getBomb().isDestroyed()) && (playerVisible == board.getPlayer().isVisible()));
+            assertTrue( (bombDestroyed == alien.getBomb().isDestroyed()) && (playerVisible == board.getPlayer().isVisible()) && (alienVisible == alien.isVisible()));
+        }catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void test_Update_Bomb_Caso4(){
+        try{
+            Iterator<Alien> itAlien = board.getAliens().iterator();
+            Alien alien = itAlien.next();
+            while (itAlien.hasNext()) {
+                itAlien.next().die();
+            }
+            alien.getBomb().setDestroyed(false);
+            alien.getBomb().setY(board.getPlayer().getY() + Commons.PLAYER_HEIGHT + 1);
+            alien.getBomb().setX(board.getPlayer().getX());
+            Player player = board.getPlayer();
+            int bombPosY = alien.getBomb().getY();
+            Method method = Board.class.getDeclaredMethod("update_bomb");
+            method.setAccessible(true);
+            method.invoke(board);
+            assertTrue(alien.getBomb().isDestroyed() && !player.isDying() && (bombPosY + Commons.BOMB_SPEED == alien.getBomb().getY()));
         }catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
