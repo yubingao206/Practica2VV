@@ -422,6 +422,7 @@ public class Board extends JPanel {
                 this.shot.setX(y); esta linea se ha eliminado
                  */
                 this.shot.setY(y);
+//                this.shot.setX(y);
             }
         }
     }
