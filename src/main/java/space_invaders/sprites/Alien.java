@@ -133,7 +133,7 @@ public class Alien extends Sprite {
          * */
         public Bomb(int x, int y) {
 
-             System.out.println("------------Pasar el control al InitBomb---------------");
+            System.out.println("------------Pasar el control al InitBomb---------------");
             System.out.println("Antes de instanciar la bomba por el alien: No hay bomba instanciada ");
             initBomb(x, y);
             System.out.println("posición esperada de la Bomba instanciada: X = " + x + ", Y = " + y
