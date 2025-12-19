@@ -16,8 +16,8 @@ public class BombTest {
 
     @Test
     void testinitBomb_Caso1() {
-        int x = 359;
-        int y = 351;
+        int x = Commons.BOARD_WIDTH + 1;
+        int y = Commons.BOARD_HEIGHT + 1;
         Alien a = new Alien(x, y);
         Alien.Bomb b = a.getBomb();
 
