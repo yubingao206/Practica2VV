@@ -135,7 +135,12 @@ public class Board extends JPanel {
         System.out.println("Antes de instanciar los aliens en sus posición indicada: longitud de lista alien= 0");
         for (int i = 0; i < Commons.ALIEN_ROWS; i++) {
             for (int j = 0; j < Commons.ALIEN_COLUMNS; j++) {
-
+                /*
+                Hemos añadido la distancia que hay entre los aliens cuando se crea la matriz de aliens,
+                Commons.ALIEN_WIDTH * j a (Commons.ALIEN_SEPARATOR+Commons.ALIEN_WIDTH) * j y
+                Commons.ALIEN_HEIGHT * i a (Commons.ALIEN_SEPARATOR + Commons.ALIEN_HEIGHT) * i
+                porque no se ha tenido en cuenta la distancia entre los aliens
+                 */
                 var alien = new Alien(Commons.ALIEN_INIT_X + (Commons.ALIEN_SEPARATOR+Commons.ALIEN_WIDTH) * j,
                         Commons.ALIEN_INIT_Y + (Commons.ALIEN_SEPARATOR + Commons.ALIEN_HEIGHT) * i);
                 this.aliens.add(alien);
@@ -387,6 +392,10 @@ public class Board extends JPanel {
                 int alienX = alien.getX();
                 int alienY = alien.getY();
 
+                /*
+                Se ha eliminado la condición de this.shot.isVisible(), porque no se ha modificado antes de entrar al
+                if y en el if de afuera ya se ha comprobado
+                 */
                 if (alien.isVisible()) {
                     if (shotX >= (alienX)
                             && shotX <= (alienX + Commons.ALIEN_WIDTH)
@@ -408,8 +417,12 @@ public class Board extends JPanel {
             if (y < 0) {
                 this.shot.die();
             } else {
+                /*
+                Se ha quitado la linea que modifica la posición X del disparo, porque el disparo solo se mueve por el eje y,
+                this.shot.setX(y); esta linea se ha eliminado
+                 */
                 this.shot.setY(y);
-     //           this.shot.setX(y);
+//                this.shot.setX(y);
             }
         }
     }
@@ -439,9 +452,17 @@ public class Board extends JPanel {
      */
     private void update_aliens(){
         for (Alien alien : this.aliens) {
+            /*
+            Se ha añadido un if (alien.isVisible()) para ver si el alien es visible, si el alien no es visible no hay que tener en cuenta
+            si este ha chocado con el borde
+             */
             if (alien.isVisible()) {
-                int x = alien.getX();
 
+                int x = alien.getX();
+                /*
+                Se ha quitado  la condición de direction == -1 del if porque al chocar con el borde derecho la direccion
+                en ese caso sería 1 y si se pone -1 no cambiaria de dirrección
+                 */
                 if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT) {
 
                     direction = -1;
@@ -454,7 +475,10 @@ public class Board extends JPanel {
                         a2.setY(a2.getY() + Commons.GO_DOWN);
                     }
                 }
-
+                /*
+                Se ha quitado  la condición de direction != 1 del if porque al chocar con el borde siempre sera porque
+                la direccion es -1 y hay que cambiarla a -1
+                 */
                 if (x <= Commons.BORDER_LEFT) {
 
                     direction = 1;
@@ -479,8 +503,16 @@ public class Board extends JPanel {
             if (alien.isVisible()) {
 
                 int y = alien.getY();
-
-                if (y > Commons.GROUND + Commons.ALIEN_HEIGHT) {
+                /*
+                Se ha cambiado la condición de y > Commons.GROUND + Commons.ALIEN_HEIGHT a y > Commons.GROUND, porque el
+                punto y es siempre la esquina superior izquierda luego cuando el punto y del alien supere la Tierra
+                significa que el alien ha realizado invasión y el juego ha terminado
+                 */
+                if (y > Commons.GROUND) {
+                    /*
+                    Se ha cambiado inGame = true; a inGame = false; porque cuando los aliens sumergen en la tierra el
+                    juego se termina y el inGame debería de ser falso
+                     */
                     inGame = false;
                     message = "Invasion!";
                 }
