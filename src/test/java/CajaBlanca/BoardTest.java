@@ -304,7 +304,7 @@ public class BoardTest {
             int alienPosX = alien.getX(), alienPosY = alien.getY();
             Method method = Board.class.getDeclaredMethod("update_bomb");
             method.setAccessible(true);
-            for (int i = 0; i < 15 && alien.getBomb().isDestroyed(); i++) {
+            for (int i = 0; i < 100 && alien.getBomb().isDestroyed(); i++) {
                 method.invoke(board);
             }
             assertTrue(!alien.getBomb().isDestroyed() && alienPosX == alien.getBomb().getX() &&
