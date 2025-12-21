@@ -504,11 +504,11 @@ public class Board extends JPanel {
 
                 int y = alien.getY();
                 /*
-                Se ha cambiado la condición de y > Commons.GROUND + Commons.ALIEN_HEIGHT a y > Commons.GROUND, porque el
+                Se ha cambiado la condición de y > Commons.GROUND + Commons.ALIEN_HEIGHT a y >= Commons.GROUND, porque el
                 punto y es siempre la esquina superior izquierda luego cuando el punto y del alien supere la Tierra
                 significa que el alien ha realizado invasión y el juego ha terminado
                  */
-                if (y > Commons.GROUND) {
+                if (y >= Commons.GROUND) {
                     /*
                     Se ha cambiado inGame = true; a inGame = false; porque cuando los aliens sumergen en la tierra el
                     juego se termina y el inGame debería de ser falso

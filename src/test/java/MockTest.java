@@ -1,5 +1,3 @@
-package CajaNegra;
-
 import main.Board;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Alien;
@@ -11,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockTest {
+    @Test
+    public void testGameInit(){
+        Board board = new Board();
+    }
+
     @Test
     public void testUpdate() {
         try {
@@ -40,17 +43,5 @@ public class MockTest {
             throw new RuntimeException(e);
         }
 
-    }
-
-    @Test
-    public void testGameInit(){
-        try{
-            Board board = new Board();
-            Method method = Board.class.getDeclaredMethod("gameInit");
-            method.setAccessible(true);
-            method.invoke(board);
-        }catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
