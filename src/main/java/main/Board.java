@@ -131,8 +131,7 @@ public class Board extends JPanel {
     private void gameInit() {
 
         this.aliens = new ArrayList<>();
-        System.out.println("------------Pasar el control al constructor de Alien---------------");
-        System.out.println("Antes de instanciar los aliens en sus posición indicada: longitud de lista alien= 0");
+
         for (int i = 0; i < Commons.ALIEN_ROWS; i++) {
             for (int j = 0; j < Commons.ALIEN_COLUMNS; j++) {
                 /*
@@ -147,28 +146,8 @@ public class Board extends JPanel {
             }
         }
 
-         System.out.println("Después de instanciar los aliens" +
-        "\nPosición esperada de primer alien: X=150   Y=5" +
-        "\nPosición final de primer alien: X=" + aliens.getFirst().getX() + " Y=" + aliens.getFirst().getY() +
-        "\n longitud de lista de alien final = " + aliens.size());
-        System.out.println("------------Devolver el control al GameInit---------------");
-
-        System.out.println("------------Pasar el control al constructor de Player---------------");
-        System.out.println("Antes de Instanciar el player: player = null");
         this.player = new Player();
-        System.out.println("Después de instanciar el player:" +
-                "\nPosición esperada de player: X = 179   Y = 280" +
-                "\nPosición final de Player: X = " + this.player.getX() + "  Y = " + this.player.getY());
-        System.out.println("------------Devolver el control al GameInit---------------");
-
-        System.out.println("------------Pasar el control al Constructor de Shot---------------");
-        System.out.println("Antes de instanciar el disparo del jugador: shot = null");
         this.shot = new Shot();
-
-        System.out.println("Después de instanciar el disparo:" +
-                "\nVisibilidad esperada de shot= true" +
-                "\nVisibilidad final de shot= " + this.shot.isVisible());
-        System.out.println("------------Devolver el control al GameInit---------------");
     }
 
     /**
@@ -331,34 +310,11 @@ public class Board extends JPanel {
             message = "Game won!";
         }
 
-        System.out.println("------------Pasar el control al Player act---------------");
-        System.out.println("Antes de empezar la partida la posición inicial del player es: "+ this.player.getX());
-        int salidaEsperadaX = this.player.getX() + this.player.getDx();
+        // player
         this.player.act();
-        System.out.println("\nsalida esperada de X: " +salidaEsperadaX +  "\nsalida final: " + this.player.getX());
-        System.out.println("------------Devolver el control al Update---------------");
-
-        System.out.println("------------Pasar el control al update_shots---------------");
-        System.out.println("Antes de empezar la partida la posicion inicial del shot es: "+ this.shot.getY());
         update_shots();
-        System.out.println("\nDespues de ejecutar update_shots(): salida esperada: Y == 1 \nsalida final: " + this.shot.getY());
-        System.out.println("------------Devolver el control al Update---------------");
-
-        System.out.println("------------Pasar el control al update_aliens---------------");
-        System.out.println("Antes de empezar la partida la posicion inicial del alien es: "+
-                "\nX: "+this.aliens.getFirst().getX() + "\nY: " + this.aliens.getFirst().getY());
         update_aliens();
-        System.out.println("\nDespues de ejecutar update_aliens(): \nsalida esperada X  == 327   salida final X: " + this.aliens.get(0).getX()
-        + "\nsalida esperada Y == 20   salida final Y: " + this.aliens.get(0).getY())  ;
-        System.out.println("------------Devolver el control al Update---------------");
-
-        System.out.println("------------Pasar el control al update_bomb---------------");
-        System.out.println("Antes de empezar la partida la posicion inicial del bomb es: " +
-                "\nX: "+aliens.getFirst().getBomb().getX() + "\nY: " + aliens.getFirst().getBomb().getY());
         update_bomb();
-        System.out.println("\nDespues de ejecutar update_bomb():salida esperada X == 200  salida final X: " +
-                aliens.getFirst().getBomb().getX()+ "\n salida esperada Y == 101  salida final Y: " + aliens.getFirst().getBomb().getY());
-        System.out.println("------------Devolver el control al Update---------------");
     }
 
     /**
@@ -516,14 +472,8 @@ public class Board extends JPanel {
                     inGame = false;
                     message = "Invasion!";
                 }
-                System.out.println("------------Pasar el control al Alien act---------------");
-                System.out.println("\nAntes de mover horizontalmente por el método act(): \nposición X="+ this.aliens.getFirst().getX());
+
                 alien.act(direction);
-                int salidaEsperadaX = this.aliens.getFirst().getX() + this.aliens.getFirst().getDx();
-                System.out.println("\nDespués de mover horizontalmente por el método act(): "
-                        + "\nAlien posición esperada X = " +salidaEsperadaX +  "\nAlien posición final X = "
-                        + this.aliens.getFirst().getX());
-                System.out.println("------------Devolver el control al update_aliens---------------");
             }
         }
 

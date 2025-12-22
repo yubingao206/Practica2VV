@@ -1,47 +1,66 @@
 import main.Board;
+import main.Commons;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Alien;
 import space_invaders.sprites.Shot;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class IntegracionTest {
+
+    Board board;
+    @org.junit.jupiter.api.BeforeEach
+    void setUp(){
+        board=new Board();
+    }
+
     @Test
     public void testGameInit(){
-        Board board = new Board();
+        boolean alienGenerado = board.getAliens().size() == Commons.ALIEN_ROWS*Commons.ALIEN_COLUMNS;
+        boolean alienBombGenerado = board.getAliens().getFirst().getBomb() != null;
+        boolean playerGenerado = board.getPlayer() != null;
+        boolean shotGenerado = board.getShot() != null;
+        assertTrue(alienGenerado && alienBombGenerado && playerGenerado && shotGenerado);
     }
 
     @Test
     public void testUpdate() {
-        try {
-            //para el metodo Player.act()
-            Board board = new Board();
-            board.setInGame(true);
-            board.getPlayer().setDx(-2);
-            //para el metodo update_shots()
-            Shot shot = new Shot();
-            shot.setX(140);
-            shot.setY(5);
-            board.setShot(shot);
-            //para el metodo update_aliens()
-            board.setDirection(1);
-            List<Alien> aliens = new ArrayList<>();
-            aliens.add(new Alien(328,5));
-            board.setAliens(aliens);
-            //para el metodo update_bomb()
-            Alien.Bomb bomb = aliens.getFirst().getBomb();
-            bomb.setDestroyed(false);
-            bomb.setX(200);
-            bomb.setY(100);
+        try{
+            Iterator<Alien> itAlien = board.getAliens().iterator();
+            Alien alien = itAlien.next();
+            while (itAlien.hasNext()) {
+                itAlien.next().die();
+            }
+
+            int alenPosX = 10;
+            alien.setX(alenPosX);
+
+            int playerPos = board.getPlayer().getX();
+            board.getPlayer().setDx(2);
+
+            int shotPos = 100;
+            board.getShot().setY(shotPos);
+
+            alien.getBomb().setDestroyed(false);
+            int bombPosY = 50;
+            alien.getBomb().setY(bombPosY);
+
             Method method = Board.class.getDeclaredMethod("update");
             method.setAccessible(true);
             method.invoke(board);
+
+            boolean playerAct = board.getPlayer().getX() == playerPos + board.getPlayer().getDx();
+            boolean update_shot = board.getShot().getY() == shotPos - Commons.SHOT_SPEED;
+            boolean update_alien = alien.getX() == alenPosX + board.getDirection();
+            boolean update_bomb = alien.getBomb().getY() == bombPosY + Commons.BOMB_SPEED;
+
+            assertTrue(playerAct && update_shot && update_alien && update_bomb);
         }catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

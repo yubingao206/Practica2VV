@@ -22,13 +22,7 @@ public class Alien extends Sprite {
      * */
     public Alien(int x, int y) {
 
-        System.out.println("------------Pasar el control al initAlien---------------");
-        System.out.println("Antes de llamar al método initAlien: alien no instanciada");
         initAlien(x, y);
-        System.out.println("Instancia alien en posición indicada:" +
-        "\n Alien posición esperada: X = " + x + "  Y = " + y +
-        "\n Alien posición final: X = " + this.x + "  Y = " + this.y);
-        System.out.println("------------Devolver el control al constructor de Alien---------------");
     }
 
     /**
@@ -69,13 +63,8 @@ public class Alien extends Sprite {
          } else if (y<0){
              this.y=0;
          }
-         System.out.println("------------Pasar el control al constructor de Bomb---------------");
-         System.out.println("Antes de ejecutar el constructor de bomba: Bomba no instanciada");
+
          bomb = new Bomb(x, y);
-         System.out.println("Instanciar bomba en la posición de alien: "
-        + "\n posicion alien: X = " + x + " y = " + y
-        + "\n posición bomb: X = " + this.bomb.getX() + " y = " + this.bomb.getY());
-         System.out.println("------------Devolver el control al InitAlien ---------------");
 
          var alienImg = "src/main/resources/images/alien.png";
          var ii = new ImageIcon(alienImg);
@@ -133,12 +122,7 @@ public class Alien extends Sprite {
          * */
         public Bomb(int x, int y) {
 
-            System.out.println("------------Pasar el control al InitBomb---------------");
-            System.out.println("Antes de instanciar la bomba por el alien: No hay bomba instanciada ");
             initBomb(x, y);
-            System.out.println("posición esperada de la Bomba instanciada: X = " + x + ", Y = " + y
-            + "\nposición final de la bomba instanciada: X = " + this.x + ", Y = " + this.y);
-            System.out.println("------------Devolver el control al constructor de Bomb---------------");
         }
 
         /**
